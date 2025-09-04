@@ -2,45 +2,68 @@ import "../css/Header.css";
 import { FaHeart, FaShoppingCart, FaSearch, FaUser, FaBox, FaStar, FaSignOutAlt, FaTimes } from "react-icons/fa";
 import { TbTrash } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL || "https://exclusive.runasp.net/api";
-
-const handleLogout = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    
-    const response = await fetch(`${baseUrl}/Account/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    });
-
-    if (response.ok) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("user");
-      
-      window.location.href = "/";
-    } else {
-      console.error("Logout failed");
-      alert("Logout failed ❌");
-    }
-  } catch (error) {
-    console.error("Error during logout:", error);
-    alert("Error connecting to server.");
-  }
-};
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
-  // Check if user is logged in
-  const isLoggedIn = localStorage.getItem("token");
+  // Check login status on component mount and when localStorage changes
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+
+    checkLoginStatus();
+
+    // Listen for storage changes (for when user logs in/out in another tab)
+    window.addEventListener('storage', checkLoginStatus);
+
+    // Custom event listener for login state changes
+    window.addEventListener('loginStateChanged', checkLoginStatus);
+
+    return () => {
+      window.removeEventListener('storage', checkLoginStatus);
+      window.removeEventListener('loginStateChanged', checkLoginStatus);
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      
+      const response = await fetch(`${baseUrl}/Account/logout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (response.ok) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("user");
+        
+        // Update state and dispatch event
+        setIsLoggedIn(false);
+        window.dispatchEvent(new Event('loginStateChanged'));
+        
+        window.location.href = "/";
+      } else {
+        console.error("Logout failed");
+        alert("Logout failed ❌");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      alert("Error connecting to server.");
+    }
+  };
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
