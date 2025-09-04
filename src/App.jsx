@@ -1,10 +1,10 @@
 import "./App.css";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Footer from "./componants/Footer";
-import Contact from "./pages/Contact";
-import ScrollToTop from "./componants/Backtotop";
-import AllProducts from "./pages/AllProducts";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/login.jsx";
+import Footer from "./componants/Footer.jsx";
+import Contact from "./pages/Contact.jsx";
+import ScrollToTop from "./componants/Backtotop.jsx";
+import AllProducts from "./pages/AllProducts.jsx";
 
 import AddToCart from "./pages/AddToCart";
 
@@ -21,7 +21,7 @@ import Profile from "./pages/Profile"
 import Admin from "./AdminContent/AdminProfile.jsx"
 import CreateProduct from "./AdminContent/CreateProduct.jsx"
 import CreateCat from "./AdminContent/CreateCat.jsx"
-import adv from "./AdminContent/Advertisments.jsx"
+import Adv from "./AdminContent/Advertisments.jsx"
 
 
 
