@@ -67,7 +67,7 @@ const Login = () => {
           response.data.accessToken,
           response.data.refreshToken
         );
-
+  window.dispatchEvent(new Event('loginStateChanged'));
         setSuccess(true);
         
         // Role-based redirection
