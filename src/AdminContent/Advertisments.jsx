@@ -1,13 +1,12 @@
-
-
 // not completed 
-const adv = () => 
+const Adv = () => 
 {
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 my-16">
 
-            <h1 className="text-5xl text-red-500">Future Improvments </h1>
+            <h1 className="text-5xl text-red-500 text-center py-6">Future Improvments </h1>
+            <h1 className="text-5xl text-red-500 text-center"> 💖ان شاء الله</h1>
         </div>
     )
 }
-export default adv;
+export default Adv;
