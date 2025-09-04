@@ -11,12 +11,28 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null);
   
-  // Check login status on component mount and when localStorage changes
+  // Check login status and user role on component mount and when localStorage changes
   useEffect(() => {
     const checkLoginStatus = () => {
       const token = localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+      
       setIsLoggedIn(!!token);
+      
+      // Get user role from localStorage
+      if (userData) {
+        try {
+          const user = JSON.parse(userData);
+          setUserRole(user.role);
+        } catch (e) {
+          console.error("Error parsing user data:", e);
+          setUserRole(null);
+        }
+      } else {
+        setUserRole(null);
+      }
     };
 
     checkLoginStatus();
@@ -52,6 +68,7 @@ const Header = () => {
         
         // Update state and dispatch event
         setIsLoggedIn(false);
+        setUserRole(null);
         window.dispatchEvent(new Event('loginStateChanged'));
         
         window.location.href = "/";
@@ -85,6 +102,10 @@ const Header = () => {
             <li><Link to="/contact">Contact</Link></li>
             <li><Link to="/about">About</Link></li>
             {!isLoggedIn && <li><Link to="/signup">Sign Up</Link></li>}
+            {/* Admin Dashboard link */}
+            {isLoggedIn && userRole?.toLowerCase() === 'admin' && (
+              <li><Link to="/admin">Admin Dashboard</Link></li>
+            )}
           </ul>
         </nav>
 
@@ -181,6 +202,10 @@ const Header = () => {
           <li><Link to="/contact" onClick={closeMobileMenu}>Contact</Link></li>
           <li><Link to="/about" onClick={closeMobileMenu}>About</Link></li>
           {!isLoggedIn && <li><Link to="/signup" onClick={closeMobileMenu}>Sign Up</Link></li>}
+          {/* Admin Dashboard link for mobile */}
+          {isLoggedIn && userRole?.toLowerCase() === 'admin' && (
+            <li><Link to="/admin" onClick={closeMobileMenu}>Admin Dashboard</Link></li>
+          )}
         </ul>
 
         <div className="mobile-icons">
