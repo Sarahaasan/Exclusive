@@ -41,11 +41,11 @@ It is built with a focus on clean UI, scalability, full responsiveness, and inte
 
 ## 📂 Project Structure
 Exclusive/
-│── src/
-│ ├── components/ # Reusable UI components (Navbar, Footer, etc.)
-│ ├── pages/ # Page components (Home, Cart, Wishlist, Checkout, etc.)
-│ ├── utils/ # Utility functions & custom hooks
-│ ├── App.js # Main app entry point
-│ └── index.js # React DOM entry
+└── src/
+├── components/ # Reusable UI components (Navbar, Footer, etc.)
+├── pages/ # Page components (Home, Cart, Wishlist, Checkout, etc.)
+├── utils/ # Utility functions & custom hooks
+├── App.js # Main app entry point
+└── index.js # React DOM entry
 
 
