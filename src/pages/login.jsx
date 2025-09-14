@@ -1,13 +1,5 @@
 
-// // ################################################################33333
-// // "email": "00ziadmohammed606@gmail.com",
-//   // "password": "P@ssw0rd123Pass",
-//   // "phoneNumber": "+201234567891"
 
-//   //  "email": "zezomohammed390@gmail.com",
-//   // "password": "P@ssw0rd123Pass",
-//   // "phoneNumber": "01224309198"
-//   // 33##################################################################3
 
 import { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
@@ -204,27 +196,7 @@ const Login = () => {
 };
 
 export default Login;
-        {/* Quick Test Buttons - Remove in production */}
-        {/* <div className="border-t pt-4 mt-4">
-          <p className="text-sm text-gray-600 mb-2">Quick Test:</p>
-          <button
-            type="button"
-            onClick={() => {
-              setEmail("00ziadmohammed606@gmail.com");
-              setPassword("P@ssw0rd123Pass");
-            }}
-            className="text-xs bg-gray-200 px-2 py-1 rounded mr-2 hover:bg-gray-300"
-          >
-            Fill Test User 1
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setEmail("zezomohammed390@gmail.com");
-              setPassword("P@ssw0rd123Pass");
-            }}
-            className="text-xs bg-gray-200 px-2 py-1 rounded hover:bg-gray-300"
-          >
+  
             Fill Test User 2
           </button>
         </div> */}
